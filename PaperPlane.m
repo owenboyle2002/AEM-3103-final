@@ -96,10 +96,57 @@ figure; hold on;
 title('Simultaneous Variations');
 xlabel('Time (s)');
 ylabel('Altitude (m)');
+tspan = linspace(to,tf,50);
+% Matrices to create an aveage line for range and height
+r_ave = zeros(50,1);
+h_ave = zeros(50,1);
 for i = 1:100
     vi = vmin + (vmax-vmin)*rand(1);
     gi = gmin + (gmax-gmin)*rand(1);
     xo		=	[vi;gi;H;R];
     [t,x]	=	ode23('EqMotion',tspan,xo);
     plot(t,x(:,3), 'color', [0 0 0 0.25]);
+    r_ave  = r_ave + x(:,4);
+    h_ave = h_ave + x(:,3);
 end
+
+
+%% 4: Fit a Curve to 3
+
+% use for loop from above to create an average line
+% Calculate actual usable aveage matrices
+r_ave = r_ave/50;
+h_ave = h_ave/50;
+% plot average lines vs time for visualization
+% figure;
+% plot(t,h_ave);
+% title('Average Altitude');
+% xlabel('Time (s)');
+% ylabel('Altitude (m)');
+% figure;
+% plot(t,r_ave);
+% title('Average range');
+% xlabel('Time (s)');
+% ylabel('Range (m)');
+
+% Fit and plot polynomials using simple polyfit
+% Altitude vs. Time
+p = polyfit(t,h_ave,12);
+yfit = polyval(p,t);
+figure; hold on;
+plot(t,yfit);
+plot(t,h_ave);
+title('Average Altitude vs. fitted');
+xlabel('Time (s)');
+ylabel('Altitude (m)');
+legend('Numerical Average','Polynomial Fitted');
+% Range vs. Time
+p = polyfit(t,r_ave,12);
+yfit = polyval(p,t);
+figure; hold on;
+plot(t,yfit);
+plot(t,r_ave);
+title('Average range vs. fitted');
+xlabel('Time (s)');
+ylabel('Range (m)');
+legend('Numerical Average','Polynomial Fitted');

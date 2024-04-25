@@ -80,3 +80,26 @@ plot(tng,xng(:,3),'k',tlg,xlg(:,3),'r',thg,xhg(:,3),'g');
 xlabel('Time, s'), ylabel('Altitude, m'), grid;
 legend('Nominal', 'Lower', 'Higher');
 title('Flight Path Angle Case A');
+
+%                    Height vs range??
+
+
+%% 3: Simultaneous variations
+
+% initialize min and max values to be used for random number generator
+vmin = 2; vmax = 7.5;
+gmin = -0.5; gmax = 0.4;
+
+% For loop to do 100 iterations with random initial values and plot each
+vi = nan; gi = nan;
+figure; hold on;
+title('Simultaneous Variations');
+xlabel('Time (s)');
+ylabel('Altitude (m)');
+for i = 1:100
+    vi = vmin + (vmax-vmin)*rand(1);
+    gi = gmin + (gmax-gmin)*rand(1);
+    xo		=	[vi;gi;H;R];
+    [t,x]	=	ode23('EqMotion',tspan,xo);
+    plot(t,x(:,3), 'color', [0 0 0 0.25]);
+end

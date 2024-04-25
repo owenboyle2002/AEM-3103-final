@@ -49,17 +49,34 @@ clear; clc; close all;
 % velocity:
 % nominal
 xo		=	[V;Gam;H;R];
-[tn,xn]	=	ode23('EqMotion',tspan,xo);
+[tnv,xnv]	=	ode23('EqMotion',tspan,xo);
 % lower
 xo		=	[7.5;Gam;H;R];
-[tl,xl]	=	ode23('EqMotion',tspan,xo);
+[tlv,xlv]	=	ode23('EqMotion',tspan,xo);
 % higher
 xo		=	[2;Gam;H;R];
-[th,xh]	=	ode23('EqMotion',tspan,xo);
+[thv,xhv]	=	ode23('EqMotion',tspan,xo);
 % Plotting
-figure
-subplot(2,1,1)
-plot(tn,xn(:,1),'k',tl,xl(:,1),'r',th,xh(:,1),'g')
-xlabel('Time, s'), ylabel('Velocity, m/s'), grid
-legend('Nominal', 'Lower', 'Higher')
-title('Velocity Case A')
+figure; hold on;
+subplot(2,1,1);
+plot(tnv,xnv(:,3),'k',tlv,xlv(:,3),'r',thv,xhv(:,3),'g');
+xlabel('Time, s'), ylabel('Altitude, m'), grid;
+legend('Nominal', 'Lower', 'Higher');
+title('Velocity Case A');
+
+% Flight path angle
+% nominal
+xo		=	[V;Gam;H;R];
+[tng,xng]	=	ode23('EqMotion',tspan,xo);
+% lower
+xo		=	[V;-0.5;H;R];
+[tlg,xlg]	=	ode23('EqMotion',tspan,xo);
+% higher
+xo		=	[V;0.4;H;R];
+[thg,xhg]	=	ode23('EqMotion',tspan,xo);
+% Plotting
+subplot(2,1,2);
+plot(tng,xng(:,3),'k',tlg,xlg(:,3),'r',thg,xhg(:,3),'g');
+xlabel('Time, s'), ylabel('Altitude, m'), grid;
+legend('Nominal', 'Lower', 'Higher');
+title('Flight Path Angle Case A');

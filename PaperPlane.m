@@ -150,3 +150,7 @@ title('Average range vs. fitted');
 xlabel('Time (s)');
 ylabel('Range (m)');
 legend('Numerical Average','Polynomial Fitted');
+
+
+%% 5: First Time Derivatives
+

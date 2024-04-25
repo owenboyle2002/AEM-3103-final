@@ -1,43 +1,65 @@
 %	Example 1.3-1 Paper Airplane Flight Path
 %	Copyright 2005 by Robert Stengel
 %	August 23, 2005
-
+clear; clc; close all;
 %	a) Equilibrium Glide at Maximum Lift/Drag Ratio
     [V,Gam,H,R] = setup_sim();
 	to		=	0;			% Initial Time, sec
 	tf		=	6;			% Final Time, sec
 	tspan	=	[to tf];
-	xo		=	[V;Gam;H;R];
-	[ta,xa]	=	ode23('EqMotion',tspan,xo);
-	
-%	b) Oscillating Glide due to Zero Initial Flight Path Angle
-	xo		=	[V;0;H;R];
-	[tb,xb]	=	ode23('EqMotion',tspan,xo);
+% 	xo		=	[V;Gam;H;R];
+% 	[ta,xa]	=	ode23('EqMotion',tspan,xo);
+% 
+% %	b) Oscillating Glide due to Zero Initial Flight Path Angle
+% 	xo		=	[V;0;H;R];
+% 	[tb,xb]	=	ode23('EqMotion',tspan,xo);
+% 
+% %	c) Effect of Increased Initial Velocity
+% 	xo		=	[1.5*V;0;H;R];
+% 	[tc,xc]	=	ode23('EqMotion',tspan,xo);
+% 
+% %	d) Effect of Further Increase in Initial Velocity
+% 	xo		=	[3*V;0;H;R];
+% 	[td,xd]	=	ode23('EqMotion',tspan,xo);
+% 
+	% figure   Commented out to simplify process
+	% plot(xa(:,4),xa(:,3),xb(:,4),xb(:,3),xc(:,4),xc(:,3),xd(:,4),xd(:,3))
+	% xlabel('Range, m'), ylabel('Height, m'), grid
+    % legend('1');
+    % 
+	% figure
+	% subplot(2,2,1)
+	% plot(ta,xa(:,1),tb,xb(:,1),tc,xc(:,1),td,xd(:,1))
+	% xlabel('Time, s'), ylabel('Velocity, m/s'), grid
+	% subplot(2,2,2)
+	% plot(ta,xa(:,2),tb,xb(:,2),tc,xc(:,2),td,xd(:,2))
+	% xlabel('Time, s'), ylabel('Flight Path Angle, rad'), grid
+	% subplot(2,2,3)
+	% plot(ta,xa(:,3),tb,xb(:,3),tc,xc(:,3),td,xd(:,3))
+	% xlabel('Time, s'), ylabel('Altitude, m'), grid
+	% subplot(2,2,4)
+	% plot(ta,xa(:,4),tb,xb(:,4),tc,xc(:,4),td,xd(:,4))
+	% xlabel('Time, s'), ylabel('Range, m'), grid
 
-%	c) Effect of Increased Initial Velocity
-	xo		=	[1.5*V;0;H;R];
-	[tc,xc]	=	ode23('EqMotion',tspan,xo);
+%% 2: Case A
+% varying plots for nominal, higher, and lower v0 and gam-0
+% lower: red, nominal: black, higher: green
+% 2x1 subplots for vel and gam vs. time
 
-%	d) Effect of Further Increase in Initial Velocity
-	xo		=	[3*V;0;H;R];
-	[td,xd]	=	ode23('EqMotion',tspan,xo);
-	
-	figure
-	plot(xa(:,4),xa(:,3),xb(:,4),xb(:,3),xc(:,4),xc(:,3),xd(:,4),xd(:,3))
-	xlabel('Range, m'), ylabel('Height, m'), grid
-    legend('1');
-
-	figure
-	subplot(2,2,1)
-	plot(ta,xa(:,1),tb,xb(:,1),tc,xc(:,1),td,xd(:,1))
-	xlabel('Time, s'), ylabel('Velocity, m/s'), grid
-	subplot(2,2,2)
-	plot(ta,xa(:,2),tb,xb(:,2),tc,xc(:,2),td,xd(:,2))
-	xlabel('Time, s'), ylabel('Flight Path Angle, rad'), grid
-	subplot(2,2,3)
-	plot(ta,xa(:,3),tb,xb(:,3),tc,xc(:,3),td,xd(:,3))
-	xlabel('Time, s'), ylabel('Altitude, m'), grid
-	subplot(2,2,4)
-	plot(ta,xa(:,4),tb,xb(:,4),tc,xc(:,4),td,xd(:,4))
-	xlabel('Time, s'), ylabel('Range, m'), grid
-
+% velocity:
+% nominal
+xo		=	[V;Gam;H;R];
+[tn,xn]	=	ode23('EqMotion',tspan,xo);
+% lower
+xo		=	[7.5;Gam;H;R];
+[tl,xl]	=	ode23('EqMotion',tspan,xo);
+% higher
+xo		=	[2;Gam;H;R];
+[th,xh]	=	ode23('EqMotion',tspan,xo);
+% Plotting
+figure
+subplot(2,1,1)
+plot(tn,xn(:,1),'k',tl,xl(:,1),'r',th,xh(:,1),'g')
+xlabel('Time, s'), ylabel('Velocity, m/s'), grid
+legend('Nominal', 'Lower', 'Higher')
+title('Velocity Case A')

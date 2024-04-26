@@ -118,15 +118,56 @@ end
 r_ave = r_ave/50;
 h_ave = h_ave/50;
 % plot average lines vs time for visualization
-figure;
-plot(h_ave,t);
-title('Average Altitude');
+% figure;
+% plot(t,h_ave);
+% title('Average Altitude');
+% xlabel('Time (s)');
+% ylabel('Altitude (m)');
+% figure;
+% plot(t,r_ave);
+% title('Average range');
+% xlabel('Time (s)');
+% ylabel('Range (m)');
+
+% Fit and plot polynomials using simple polyfit
+% Altitude vs. Time
+ph = polyfit(t,h_ave,12);
+yfith = polyval(ph,t);
+figure; hold on;
+plot(t,yfith);
+plot(t,h_ave);
+title('Average Altitude vs. fitted');
 xlabel('Time (s)');
 ylabel('Altitude (m)');
-figure;
-plot(r_ave,t);
-title('Average range');
+legend('Numerical Average','Polynomial Fitted');
+% Range vs. Time
+pr = polyfit(t,r_ave,12);
+yfitr = polyval(pr,t);
+figure; hold on;
+plot(t,yfitr);
+plot(t,r_ave);
+title('Average range vs. fitted');
 xlabel('Time (s)');
 ylabel('Range (m)');
+legend('Numerical Average','Polynomial Fitted');
 
-% Fit polynomials
+
+%% 5: First Time Derivatives
+% Using finite forward difference, based off what we did in class
+
+drl = length(t);
+fp_numh = nan*zeros(1, drl);
+fp
+% height
+for i = 1:drl-1
+    fp_num(i) = (yfith(i+1) - yfith(i))/(t(i+1) - t(i));
+end
+% range
+for i = 1:drl-1
+    fp_num(i) = (yfitr(i+1) - yfitr(i))/(t(i+1) - t(i));
+end
+
+% Potting
+figure; hold on;
+subplot(2,1,1);
+plot(t, )

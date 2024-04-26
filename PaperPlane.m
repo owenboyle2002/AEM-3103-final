@@ -131,20 +131,20 @@ h_ave = h_ave/50;
 
 % Fit and plot polynomials using simple polyfit
 % Altitude vs. Time
-p = polyfit(t,h_ave,12);
-yfit = polyval(p,t);
+ph = polyfit(t,h_ave,12);
+yfith = polyval(ph,t);
 figure; hold on;
-plot(t,yfit);
+plot(t,yfith);
 plot(t,h_ave);
 title('Average Altitude vs. fitted');
 xlabel('Time (s)');
 ylabel('Altitude (m)');
 legend('Numerical Average','Polynomial Fitted');
 % Range vs. Time
-p = polyfit(t,r_ave,12);
-yfit = polyval(p,t);
+pr = polyfit(t,r_ave,12);
+yfitr = polyval(pr,t);
 figure; hold on;
-plot(t,yfit);
+plot(t,yfitr);
 plot(t,r_ave);
 title('Average range vs. fitted');
 xlabel('Time (s)');
@@ -153,4 +153,31 @@ legend('Numerical Average','Polynomial Fitted');
 
 
 %% 5: First Time Derivatives
+% Using finite forward difference, based off what we did in class
 
+drl = length(t);
+fp_numh = nan*zeros(1, drl);
+fp_numr = fp_numh;
+% height
+for i = 1:drl-1
+    fp_numh(i) = (yfith(i+1) - yfith(i))/(t(i+1) - t(i));
+end
+% range
+for i = 1:drl-1
+    fp_numr(i) = (yfitr(i+1) - yfitr(i))/(t(i+1) - t(i));
+end
+
+% Potting
+figure; hold on;
+% height
+subplot(2,1,1);
+plot(t, fp_numh);
+title('Deriviative For Altitude');
+xlabel('Time (s)');
+ylabel('Altitude Dervivative');
+% range
+subplot(2,1,2);
+plot(t, fp_numr);
+title('Deriavtive for Range');
+xlabel('Time (s)');
+ylabel('Range Derivative');

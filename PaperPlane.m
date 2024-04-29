@@ -59,8 +59,8 @@ xo		=	[2;Gam;H;R];
 % Plotting
 figure; hold on;
 subplot(2,1,1);
-plot(tnv,xnv(:,3),'k',tlv,xlv(:,3),'r',thv,xhv(:,3),'g');
-xlabel('Time, s'), ylabel('Altitude, m'), grid;
+plot(xnv(:,3),xnv(:,4),'k',xlv(:,3),xlv(:,4),'r',xhv(:,3),xhv(:,4),'g');
+xlabel('Altitude, m'), ylabel('Range, m'), grid;
 legend('Nominal', 'Lower', 'Higher');
 title('Velocity Case A');
 
@@ -76,12 +76,10 @@ xo		=	[V;0.4;H;R];
 [thg,xhg]	=	ode23('EqMotion',tspan,xo);
 % Plotting
 subplot(2,1,2);
-plot(tng,xng(:,3),'k',tlg,xlg(:,3),'r',thg,xhg(:,3),'g');
-xlabel('Time, s'), ylabel('Altitude, m'), grid;
+plot(xng(:,3),xng(:,4),'k',xlg(:,3),xlg(:,4),'r',xhg(:,3),xhg(:,4),'g');
+xlabel('Altitude, m'), ylabel('Range, m'), grid;
 legend('Nominal', 'Lower', 'Higher');
 title('Flight Path Angle Case A');
-
-%                    Height vs range??
 
 
 %% 3: Simultaneous variations
@@ -172,12 +170,12 @@ figure; hold on;
 % height
 subplot(2,1,1);
 plot(t, fp_numh);
-title('Deriviative For Altitude');
+title('Derivative For Altitude');
 xlabel('Time (s)');
-ylabel('Altitude Dervivative');
+ylabel('Altitude Derivative');
 % range
 subplot(2,1,2);
 plot(t, fp_numr);
-title('Deriavtive for Range');
+title('Derivative for Range');
 xlabel('Time (s)');
 ylabel('Range Derivative');

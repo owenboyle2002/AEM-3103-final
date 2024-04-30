@@ -38,7 +38,7 @@ Here is a link to the function used for the equations for my initial conditions
   ## Fig. 1: Single Parameter Variation
   <2D trajectory simulated by varying single parameter at at time>
   <The above plot should also show the nominal trajectory>
-![Figure 1](C:\Users\owenb\Documents\AEM-3103-final\Figure-1.png)
+![Figure 1](Figure-1.png)
 
   Briefly describe what is being shown in the figure.
 

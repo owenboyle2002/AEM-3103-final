@@ -36,18 +36,19 @@ Here is a link to the function used for the equations for my initial conditions
   # Figures
 
   ## Fig. 1: Single Parameter Variation
-  <2D trajectory simulated by varying single parameter at at time>
-  <The above plot should also show the nominal trajectory>
 ![Figure 1](Figure-1.png)
 
-  Briefly describe what is being shown in the figure.
+The upper plot shows the change in range and altitude when initial velocity is changed, the lower plot shows the difference in range and
+altitude when initial flight path angle is changed.
 
   ## Fig. 2: Monte Carlo Simulation
-  <2D trajectories simulated using random sampling of parameters, overlay polynomial fit onto plot.>
+![Figure 2](Figure-2.png)
 
-  Briefly describe what is being shown in the figure.
+This plot is of 100 different lines using random values between the upper and lower values of initial velocity and flight path angle. The
+main difference here is that rather than only changing one value at a time, both are changed randomly within the given range.
 
  ## Fig. 3: Time Derivatives
- <Time-derivative of height and range for the fitted trajectory>
+![Figure 3](Figure-3.png)
 
-  Briefly describe what is being shown in the figure.
+The upper plot is the time derivative of the average altitude vs. time from the 100 random values, the lower plot is the time derivative
+of the average range vs. time for the 100 random values.
